@@ -9,13 +9,15 @@ import java.util.ArrayList;
  */
 public class VehicleList {
 	public int Id;
+	private int IdOffset;
 	public ArrayList<Vehicle> vehicles;
 	
 	/**
 	 * 
 	 */
 	public VehicleList() {
-		this.Id = 0;
+		this.Id = 10000;
+		this.IdOffset = 10000;
 		this.vehicles = new ArrayList<Vehicle>();
 	}
 	
@@ -122,13 +124,13 @@ public class VehicleList {
 	 * @param Id
 	 */
 	void delete(int Id) {
-		this.vehicles.remove(Id);
+		this.vehicles.remove(Id - IdOffset);
 	}
 	
 	/**
 	 * 
 	 */
-	void deleteAll() {
+	void delete() {
 		for (int i = 0; i < this.vehicles.size(); i++) {
 			this.vehicles.remove(i);
 		}
@@ -143,9 +145,9 @@ public class VehicleList {
 	 * @param Model
 	 */
 	void update(int Id, int Year, String Make, String Model) {
-		this.vehicles.get(Id).setYear(Year);
-		this.vehicles.get(Id).setMake(Make);
-		this.vehicles.get(Id).setModel(Model);
+		this.vehicles.get(Id - IdOffset).setYear(Year);
+		this.vehicles.get(Id - IdOffset).setMake(Make);
+		this.vehicles.get(Id - IdOffset).setModel(Model);
 	}
 	
 	/**
@@ -155,7 +157,7 @@ public class VehicleList {
 	 * @param Year
 	 */
 	void update(int Id, int Year) {
-		this.vehicles.get(Id).setYear(Year);
+		this.vehicles.get(Id - IdOffset).setYear(Year);
 	}
 	
 	/**
@@ -166,8 +168,8 @@ public class VehicleList {
 	 * @param Model
 	 */
 	void update(int Id, String Make, String Model) {
-		this.vehicles.get(Id).setMake(Make);
-		this.vehicles.get(Id).setModel(Model);
+		this.vehicles.get(Id - IdOffset).setMake(Make);
+		this.vehicles.get(Id - IdOffset).setModel(Model);
 	}
 	
 	/**
@@ -178,8 +180,8 @@ public class VehicleList {
 	 * @param Make
 	 */
 	void updateMake(int Id, int Year, String Make) {
-		this.vehicles.get(Id).setYear(Year);
-		this.vehicles.get(Id).setMake(Make);
+		this.vehicles.get(Id - IdOffset).setYear(Year);
+		this.vehicles.get(Id - IdOffset).setMake(Make);
 	}
 	
 	/**
@@ -189,7 +191,7 @@ public class VehicleList {
 	 * @param Make
 	 */
 	void updateMake(int Id, String Make) {
-		this.vehicles.get(Id).setMake(Make);
+		this.vehicles.get(Id - IdOffset).setMake(Make);
 	}
 	
 	/**
@@ -200,8 +202,8 @@ public class VehicleList {
 	 * @param Model
 	 */
 	void updateModel(int Id, int Year, String Model) {
-		this.vehicles.get(Id).setYear(Year);
-		this.vehicles.get(Id).setModel(Model);
+		this.vehicles.get(Id - IdOffset).setYear(Year);
+		this.vehicles.get(Id - IdOffset).setModel(Model);
 	}
 	
 	/**
@@ -211,17 +213,7 @@ public class VehicleList {
 	 * @param Model
 	 */
 	void updateModel(int Id, String Model) {
-		this.vehicles.get(Id).setModel(Model);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param Id
-	 * @return
-	 */
-	Object get(int Id) {
-		return this.vehicles.get(Id);
+		this.vehicles.get(Id - IdOffset).setModel(Model);
 	}
 	
 	/**
@@ -229,7 +221,7 @@ public class VehicleList {
 	 * 
 	 * @return
 	 */
-	Object[] getAll() {
+	Object[] get() {
 		return this.vehicles.toArray();
 	}
 	
@@ -241,7 +233,7 @@ public class VehicleList {
 	 * @param Model
 	 * @return
 	 */
-	Object[] getVehicles(int Year, String Make, String Model) {
+	Object[] get(int Year, String Make, String Model) {
 		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
 		for (Vehicle vo : this.vehicles) {
 			if (vo.getYear() == Year 
@@ -260,7 +252,7 @@ public class VehicleList {
 	 * @param Model
 	 * @return
 	 */
-	Object[] getVehicles(String Make, String Model) {
+	Object[] get(String Make, String Model) {
 		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
 		for (Vehicle vo : this.vehicles) {
 			if (vo.getMake().toLowerCase().equals(Make.toLowerCase()) 
@@ -278,7 +270,7 @@ public class VehicleList {
 	 * @param M
 	 * @return
 	 */
-	Object[] getVehicles(int Year, String M) {
+	Object[] get(int Year, String M) {
 		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
 		for (Vehicle vo : this.vehicles) {
 			if (vo.getYear() == Year 
@@ -293,13 +285,17 @@ public class VehicleList {
 	/**
 	 * 
 	 * 
-	 * @param Year
+	 * @param num
 	 * @return
 	 */
-	Object[] getVehicles(int Year) {
+	Object[] get(int num) {
 		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
+		if (num >= 10000) {
+			temp.add(this.vehicles.get(num - IdOffset));
+			return temp.toArray();
+		}
 		for (Vehicle vo : this.vehicles) {
-			if (vo.getYear() == Year ) {
+			if (vo.getYear() == num ) {
 				temp.add(vo);
 			}
 		}
@@ -312,7 +308,7 @@ public class VehicleList {
 	 * @param M
 	 * @return
 	 */
-	Object[] getVehicles(String M) {
+	Object[] get(String M) {
 		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
 		for (Vehicle vo : this.vehicles) {
 			if (vo.getMake().toLowerCase().equals(M.toLowerCase()) 

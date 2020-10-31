@@ -17,7 +17,7 @@ class VehicleListTest {
 		VehicleList v = new VehicleList();
 		v.create(2020, "Toyota", "Prius");
 		
-		assertEquals(0, v.vehicles.get(0).getId());
+		assertEquals(10000, v.vehicles.get(0).getId());
 		assertEquals(2020, v.vehicles.get(0).getYear());
 		assertEquals("Toyota", v.vehicles.get(0).getMake());
 		assertEquals("Prius", v.vehicles.get(0).getModel());
@@ -62,8 +62,8 @@ class VehicleListTest {
 		v.create(2020, "Toyota", "Prius");
 		v.create(2019, "Honda", "Civic");
 		
-		assertEquals(v.vehicles.get(0).getId(), 0);
-		assertEquals(v.vehicles.get(1).getId(), 1);
+		assertEquals(v.vehicles.get(0).getId(), 10000);
+		assertEquals(v.vehicles.get(1).getId(), 10001);
 	}
 	
 	@Test
@@ -73,7 +73,7 @@ class VehicleListTest {
 		v.create(2019, "Honda", "Civic");
 		v.create(2018, "Tesla", "Model S");
 		
-		Object[] vehicles = v.getAll();
+		Object[] vehicles = v.get();
 		
 		assertEquals(v.vehicles.get(0), vehicles[0]);
 		assertEquals(v.vehicles.get(1), vehicles[1]);

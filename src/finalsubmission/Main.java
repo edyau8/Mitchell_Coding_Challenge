@@ -1,7 +1,20 @@
 package finalsubmission;
 
+/**
+ * 
+ * 
+ * @author 18ey01
+ *
+ */
 public class Main {
+	
+	/**
+	 * 
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
+		// Verify command-line arguments
 		if (args.length < 1) {
 			System.out.println("Incorrect number of arguments.");
 			return;
@@ -20,6 +33,7 @@ public class Main {
 		
 		Vehicle temp = new Vehicle();
 		
+		// Call on respective functions
 		switch(operation) {
 		case "get":
 			temp.get(argsArr);

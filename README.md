@@ -1,4 +1,4 @@
-# Mitchell Coding Challenge Submission
+# Mitchell Coding Challenge Submission (Java)
 Name: Edward Yau  
   
 ## Sample Client (finalsubmission)

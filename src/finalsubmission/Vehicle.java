@@ -2,8 +2,20 @@ package finalsubmission;
 
 import java.sql.*;
 
+/**
+ * 
+ * 
+ * @author 18ey01
+ *
+ */
 class Vehicle {
-	void get(String[] args) {
+	
+	/**
+	 * 
+	 * 
+	 * @param args
+	 */
+	void get(String[] args) {				
 		Connection conn = null;
     	
         try {
@@ -12,8 +24,7 @@ class Vehicle {
             conn = DriverManager.getConnection(
             		"jdbc:mysql://"
             		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
-            		+ "vehicles", 
-            		"guest", "guest123");
+            		+ "vehicles", "guest", "guest123");
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -71,6 +82,11 @@ class Vehicle {
         }
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param args
+	 */
 	void create(String[] args) {
 		if (args.length != 3) {
     		System.out.println("Incorrect number of arguments.");
@@ -94,8 +110,7 @@ class Vehicle {
             conn = DriverManager.getConnection(
             		"jdbc:mysql://"
             		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
-            		+ "vehicles", 
-            		"guest", "guest123");
+            		+ "vehicles", "guest", "guest123");
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -128,6 +143,11 @@ class Vehicle {
         }
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param args
+	 */
 	void update(String[] args) {
 		if (args.length != 3) {
     		System.out.println("Incorrect number of arguments.");
@@ -154,8 +174,7 @@ class Vehicle {
             conn = DriverManager.getConnection(
             		"jdbc:mysql://"
             		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
-            		+ "vehicles", 
-            		"guest", "guest123");
+            		+ "vehicles", "guest", "guest123");
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -187,6 +206,11 @@ class Vehicle {
         }
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @param args
+	 */
 	void delete(String[] args) {
 		if (args.length != 1) {
     		System.out.println("Incorrect number of arguments.");
@@ -203,8 +227,7 @@ class Vehicle {
             conn = DriverManager.getConnection(
             		"jdbc:mysql://"
             		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
-            		+ "vehicles", 
-            		"guest", "guest123");
+            		+ "vehicles", "guest", "guest123");
 
         } catch (Exception ex) {
             System.out.println(ex);

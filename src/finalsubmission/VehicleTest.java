@@ -39,18 +39,17 @@ class VehicleTest {
 			outputStreamCaptor.toString().trim(),
 			"id: 1\n" +
 			"year: 2020\n" +
-			"make: Toyota\n" +
-			"model: Prius\n\n" +
+			"make: toyota\n" +
+			"model: prius\n\n" +
 
 			"id: 2\n" +
 			"year: 2019\n" +
-			"make: Honda\n" +
-			"model: Civic"
+			"make: honda\n" +
+			"model: civic"
 		);
 	}
 	
 	@Test
 	void testCreate() {
-	
 	}
 }

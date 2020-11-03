@@ -1,43 +1,24 @@
 # Mitchell Coding Challenge Submission
 Name: Edward Yau  
   
-Methods:  
+## Sample Client (finalsubmission)
+The client first navigates to the project directory.  
+We define the "command prefix" to be:  
+	java -cp ./lib/mysql-connector-java-8.0.22.jar:./bin/ finalsubmission.Main
 
-
-1.
-**GET** vehicles/{id}  
-
-*get()*  
-- Returns an array all Vehicle objects.  
-
-*get(int Id)*  
-- Returns the Vehicle object with the given Id.  
-
-*get(int Year, String Make, String Model)*  
-- Returns an array of all Vehicle objects with the given attributes. If the 
-user does not want to look for a certain Year, they can pass in -1. If the user
-does not want to look for a certain Make or Model, they can pass in null.
-
-2.
-**CREATE** vehicles  
-
-*create(int Year, String Make, String Model)*  
-- Creates a Vehicle object and inserts it into a list. All attributes must be
-provided.   
-  
-3.
-**UPDATE** vehicles  
-
-*update(Vehicle V, int Year, String Make, String Model)*  
-- Updates a Vehicle object with the given attributes. If the user does not want
-to update the Year, they can pass in -1. If the user does not want to update
-the Make or Model, they can pass in null.  
-
-4.
-**DELETE** vehicles/{id}  
-
-*delete()*  
-- Removes all Vehicle objects.  
-
-*delete(int Id)*  
-- Removes the Vehicle object with the given Id.  
+The client wants to get all vehicle entries:  
+	"command prefix" get
+	
+The client wants to get a vehicle entry by ID:  
+	"command prefix" get 1
+	
+The client wants to create a vehicle entry:  
+	"command prefix" create 2020 Toyota Camry	
+	
+The client wants to update a vehicle entry by ID:  
+	"command prefix" update 1 year 2019  
+	"command prefix" update 1 make Honda  
+	"command prefix" update 1 model Civic
+	
+The client wants to delete a vehicle entry by ID:  
+	"command prefix" delete 1

@@ -9,8 +9,11 @@ class Vehicle {
         try {
         	// Create JDBC connection
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", 
-            		"18ey01", "Edward568923471");
+            conn = DriverManager.getConnection(
+            		"jdbc:mysql://"
+            		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
+            		+ "vehicles", 
+            		"guest", "guest123");
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -18,7 +21,7 @@ class Vehicle {
         
         Statement stmt = null;   
         ResultSet rs = null;
-        String query = "SELECT * FROM vehicles;";
+        String query = "SELECT * FROM vehicle_objects;";
         
     	if (args.length == 1) {
         	int Id = Integer.parseInt(args[0]);
@@ -88,8 +91,11 @@ class Vehicle {
         try {
         	// Create JDBC connection
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", 
-            		"18ey01", "Edward568923471");
+            conn = DriverManager.getConnection(
+            		"jdbc:mysql://"
+            		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
+            		+ "vehicles", 
+            		"guest", "guest123");
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -97,7 +103,7 @@ class Vehicle {
         
         Statement stmt = null;        
         String query = String.format(
-        		"INSERT INTO vehicles (year, make, model) VALUE "
+        		"INSERT INTO vehicle_objects (year, make, model) VALUE "
         		+ "( '%d', '%s', '%s' );", Year, Make, Model);
 
         try {
@@ -145,8 +151,11 @@ class Vehicle {
         try {
         	// Create JDBC connection
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", 
-            		"18ey01", "Edward568923471");
+            conn = DriverManager.getConnection(
+            		"jdbc:mysql://"
+            		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
+            		+ "vehicles", 
+            		"guest", "guest123");
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -154,7 +163,7 @@ class Vehicle {
         
         Statement stmt = null;        
         String query = String.format(
-        		"UPDATE vehicles SET %s='%s' WHERE id=%d", Element, Value, Id);
+        		"UPDATE vehicle_objects SET %s='%s' WHERE id=%d", Element, Value, Id);
 
         try {
             stmt = conn.createStatement();
@@ -184,15 +193,18 @@ class Vehicle {
     		return;
     	}
     	
-    	String Id = args[0];
+    	int Id = Integer.parseInt(args[0]);
     	
     	Connection conn = null;
     	
         try {
         	// Create JDBC connection
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", 
-            		"18ey01", "Edward568923471");
+            conn = DriverManager.getConnection(
+            		"jdbc:mysql://"
+            		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
+            		+ "vehicles", 
+            		"guest", "guest123");
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -200,7 +212,7 @@ class Vehicle {
         
         Statement stmt = null;        
         String query = String.format(
-        		"DELETE FROM vehicles WHERE id='%s';", Id);
+        		"DELETE FROM vehicle_objects WHERE id='%d';", Id);
 
         try {
             stmt = conn.createStatement();

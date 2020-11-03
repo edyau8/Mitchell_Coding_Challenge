@@ -121,6 +121,15 @@ public class VehicleList {
 	/**
 	 * 
 	 * 
+	 * @param V
+	 */
+	void delete(Vehicle V) {
+		delete(V.getId());
+	}
+	
+	/**
+	 * 
+	 * 
 	 * @param Id
 	 */
 	void delete(int Id) {
@@ -139,81 +148,41 @@ public class VehicleList {
 	/**
 	 * 
 	 * 
-	 * @param Id
-	 * @param Year
-	 * @param Make
-	 * @param Model
-	 */
-	void update(int Id, int Year, String Make, String Model) {
-		this.vehicles.get(Id - IdOffset).setYear(Year);
-		this.vehicles.get(Id - IdOffset).setMake(Make);
-		this.vehicles.get(Id - IdOffset).setModel(Model);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param Id
+	 * @param V
 	 * @param Year
 	 */
-	void update(int Id, int Year) {
-		this.vehicles.get(Id - IdOffset).setYear(Year);
+	void updateYear(Vehicle V, int Year) {
+		V.setYear(Year);
 	}
 	
 	/**
 	 * 
 	 * 
-	 * @param Id
-	 * @param Make
-	 * @param Model
-	 */
-	void update(int Id, String Make, String Model) {
-		this.vehicles.get(Id - IdOffset).setMake(Make);
-		this.vehicles.get(Id - IdOffset).setModel(Model);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param Id
-	 * @param Year
+	 * @param V
 	 * @param Make
 	 */
-	void updateMake(int Id, int Year, String Make) {
-		this.vehicles.get(Id - IdOffset).setYear(Year);
-		this.vehicles.get(Id - IdOffset).setMake(Make);
+	void updateMake(Vehicle V, String Make) {
+		V.setMake(Make);
 	}
 	
 	/**
 	 * 
 	 * 
-	 * @param Id
-	 * @param Make
-	 */
-	void updateMake(int Id, String Make) {
-		this.vehicles.get(Id - IdOffset).setMake(Make);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param Id
-	 * @param Year
+	 * @param V
 	 * @param Model
 	 */
-	void updateModel(int Id, int Year, String Model) {
-		this.vehicles.get(Id - IdOffset).setYear(Year);
-		this.vehicles.get(Id - IdOffset).setModel(Model);
+	void updateModel(Vehicle V, String Model) {
+		V.setModel(Model);
 	}
 	
 	/**
 	 * 
 	 * 
 	 * @param Id
-	 * @param Model
+	 * @return
 	 */
-	void updateModel(int Id, String Model) {
-		this.vehicles.get(Id - IdOffset).setModel(Model);
+	Object get(int Id) {
+		return this.vehicles.get(Id - this.IdOffset);
 	}
 	
 	/**
@@ -235,87 +204,56 @@ public class VehicleList {
 	 */
 	Object[] get(int Year, String Make, String Model) {
 		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
-		for (Vehicle vo : this.vehicles) {
-			if (vo.getYear() == Year 
-					&& vo.getMake().toLowerCase().equals(Make.toLowerCase()) 
-					&& vo.getModel().toLowerCase().equals(Model.toLowerCase())) {
-				temp.add(vo);
+		
+		if (Year >= 0 && Make != null && Model != null) {
+			for (Vehicle V : this.vehicles) {
+				if (V.getYear() == Year
+						&& V.getMake().toLowerCase().equals(Make.toLowerCase())
+						&& V.getModel().toLowerCase().equals(Model.toLowerCase())) {
+					temp.add(V);
+				}
+			}
+		} else if (Year >= 0 && Make != null) {
+			for (Vehicle V : this.vehicles) {
+				if (V.getYear() == Year
+						&& V.getMake().toLowerCase().equals(Make.toLowerCase())) {
+					temp.add(V);
+				}
+			}
+		} else if (Year >= 0 && Model != null) {
+			for (Vehicle V : this.vehicles) {
+				if (V.getYear() == Year
+						&& V.getModel().toLowerCase().equals(Model.toLowerCase())) {
+					temp.add(V);
+				}
+			}
+		} else if (Make != null && Model != null) {
+			for (Vehicle V : this.vehicles) {
+				if (V.getMake().toLowerCase().equals(Make.toLowerCase())
+						&& V.getModel().toLowerCase().equals(Model.toLowerCase())) {
+					temp.add(V);
+				}
+			}
+		} else if (Year >= 0) {
+			for (Vehicle V : this.vehicles) {
+				if (V.getYear() == Year) {
+					temp.add(V);
+				}
+			}
+		} else if (Make != null) {
+			for (Vehicle V : this.vehicles) {
+				if (V.getMake().toLowerCase().equals(Make.toLowerCase())) {
+					temp.add(V);
+				}
+			}
+		} else if (Model != null) {
+			for (Vehicle V : this.vehicles) {
+				if (V.getModel().toLowerCase().equals(Model.toLowerCase())) {
+					temp.add(V);
+				}
 			}
 		}
-		return temp.toArray();
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param Make
-	 * @param Model
-	 * @return
-	 */
-	Object[] get(String Make, String Model) {
-		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
-		for (Vehicle vo : this.vehicles) {
-			if (vo.getMake().toLowerCase().equals(Make.toLowerCase()) 
-					&& vo.getModel().toLowerCase().equals(Model.toLowerCase())) {
-				temp.add(vo);
-			}
-		}
-		return temp.toArray();
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param Year
-	 * @param M
-	 * @return
-	 */
-	Object[] get(int Year, String M) {
-		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
-		for (Vehicle vo : this.vehicles) {
-			if (vo.getYear() == Year 
-					&& (vo.getMake().toLowerCase().equals(M.toLowerCase()) 
-							|| vo.getModel().toLowerCase().equals(M.toLowerCase()))) {
-				temp.add(vo);
-			}
-		}
-		return temp.toArray();
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param num
-	 * @return
-	 */
-	Object[] get(int num) {
-		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
-		if (num >= 10000) {
-			temp.add(this.vehicles.get(num - IdOffset));
-			return temp.toArray();
-		}
-		for (Vehicle vo : this.vehicles) {
-			if (vo.getYear() == num ) {
-				temp.add(vo);
-			}
-		}
-		return temp.toArray();
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param M
-	 * @return
-	 */
-	Object[] get(String M) {
-		ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
-		for (Vehicle vo : this.vehicles) {
-			if (vo.getMake().toLowerCase().equals(M.toLowerCase()) 
-					|| vo.getModel().toLowerCase().equals(M.toLowerCase())) {
-				temp.add(vo);
-			}
-		}
+		
 		return temp.toArray();
 	}
 	

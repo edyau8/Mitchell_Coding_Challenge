@@ -13,18 +13,7 @@ import org.junit.jupiter.api.Test;
 class VehicleListTest {
 
 	@Test
-	void testGetMethods() {
-		VehicleList v = new VehicleList();
-		v.create(2020, "Toyota", "Prius");
-		
-		assertEquals(10000, v.vehicles.get(0).getId());
-		assertEquals(2020, v.vehicles.get(0).getYear());
-		assertEquals("Toyota", v.vehicles.get(0).getMake());
-		assertEquals("Prius", v.vehicles.get(0).getModel());
-	}
-	
-	@Test
-	void testSetMethods() {
+	void testGetandSet() {
 		VehicleList v = new VehicleList();
 		v.create(2020, "Toyota", "Prius");
 		
@@ -53,7 +42,7 @@ class VehicleListTest {
 		});
 		
 		assertEquals("Vehicle year must be between 1950 and 2050", exception.getMessage());
-		assertEquals("Vehicle year must be between 1950 and 2050", exception2.getMessage());		
+		assertEquals("Vehicle year must be between 1950 and 2050", exception2.getMessage());
 	}
 	
 	@Test

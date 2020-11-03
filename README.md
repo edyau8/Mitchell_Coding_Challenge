@@ -8,28 +8,36 @@ Methods:
 **GET** vehicles/{id}  
 
 *get()*  
-- Returns all Vehicle objects or the Vehicle object associated with the given attributes.  
+- Returns an array all Vehicle objects.  
+
+*get(int Id)*  
+- Returns the Vehicle object with the given Id.  
+
+*get(int Year, String Make, String Model)*  
+- Returns an array of all Vehicle objects with the given attributes. If the 
+user does not want to look for a certain Year, they can pass in -1. If the user
+does not want to look for a certain Make or Model, they can pass in null.
 
 2.
 **CREATE** vehicles  
 
-*create()*  
-- Creates a Vehicle object and inserts it into a list.    
+*create(int Year, String Make, String Model)*  
+- Creates a Vehicle object and inserts it into a list. All attributes must be
+provided.   
   
 3.
 **UPDATE** vehicles  
 
-*update()*  
-- Updates either the year, make, and model, the make and model, or just the year of a Vehicle object given an identification number.  
-
-*updateMake()*  
-- Updates either the year and make, or just the make of a Vehicle object given an identification number.  
-
-*updateModel()*  
-- Updates either the year and model, or just the model of a Vehicle object given an identification number.  
+*update(Vehicle V, int Year, String Make, String Model)*  
+- Updates a Vehicle object with the given attributes. If the user does not want
+to update the Year, they can pass in -1. If the user does not want to update
+the Make or Model, they can pass in null.  
 
 4.
 **DELETE** vehicles/{id}  
 
 *delete()*  
-- Removes all Vehicle objects or the Vehicle object associated with the identification number from the list.  
+- Removes all Vehicle objects.  
+
+*delete(int Id)*  
+- Removes the Vehicle object with the given Id.  

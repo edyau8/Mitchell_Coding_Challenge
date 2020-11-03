@@ -36,7 +36,7 @@ class VehicleTest {
 		temp.get(args);
 		
 		assertEquals(
-			outputStreamCaptor.toString(),
+			outputStreamCaptor.toString().trim(),
 			"id: 1\n" +
 			"year: 2020\n" +
 			"make: Toyota\n" +
@@ -45,7 +45,7 @@ class VehicleTest {
 			"id: 2\n" +
 			"year: 2019\n" +
 			"make: Honda\n" +
-			"model: Civic\n\n"
+			"model: Civic"
 		);
 	}
 	

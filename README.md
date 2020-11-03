@@ -20,5 +20,8 @@ The client wants to update a vehicle entry by ID:
 	"command prefix" update 1 make Honda  
 	"command prefix" update 1 model Civic
 	
+The client wants to delete all vehicle entries:  
+	"command prefix" delete
+
 The client wants to delete a vehicle entry by ID:  
 	"command prefix" delete 1

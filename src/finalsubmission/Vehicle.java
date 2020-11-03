@@ -15,7 +15,11 @@ class Vehicle {
 	 * 
 	 * @param args
 	 */
-	void get(String[] args) {				
+	void get(String[] args) {
+		if (args.length > 1) {
+			System.out.println("Incorrect number of arguments.");
+			return;
+		}
 		Connection conn = null;
     	
         try {
@@ -212,12 +216,10 @@ class Vehicle {
 	 * @param args
 	 */
 	void delete(String[] args) {
-		if (args.length != 1) {
+		if (args.length > 1) {
     		System.out.println("Incorrect number of arguments.");
     		return;
     	}
-    	
-    	int Id = Integer.parseInt(args[0]);
     	
     	Connection conn = null;
     	
@@ -234,9 +236,14 @@ class Vehicle {
         }
         
         Statement stmt = null;        
-        String query = String.format(
-        		"DELETE FROM vehicle_objects WHERE id='%d';", Id);
+        String query = "TRUNCATE TABLE vehicle_objects;";
 
+        if (args.length == 1) {
+        	int Id = Integer.parseInt(args[0]);
+        	query = String.format(
+        			"DELETE FROM vehicle_objects WHERE id='%d';", Id);
+        }
+        
         try {
             stmt = conn.createStatement();
             stmt.executeUpdate(query);

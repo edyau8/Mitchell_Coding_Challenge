@@ -30,26 +30,33 @@ class VehicleTest {
 	}
 	
 	@Test
-	void testGet() {
+	void testCRUD() {
 		Vehicle temp = new Vehicle();
+		
 		String[] args = {};
+		temp.delete(args);
+		
+		String[] args2 = {"2020", "Toyota", "Prius"};
+		String[] args3 = {"2019", "Honda", "Civic"};
+		temp.create(args2);
+		temp.create(args3);
+		
+		String[] args4 = {"2", "Year", "2021"};
+		temp.update(args4);
+		
 		temp.get(args);
 		
 		assertEquals(
 			outputStreamCaptor.toString().trim(),
 			"id: 1\n" +
 			"year: 2020\n" +
-			"make: toyota\n" +
-			"model: prius\n\n" +
+			"make: Toyota\n" +
+			"model: Prius\n\n" +
 
 			"id: 2\n" +
-			"year: 2019\n" +
-			"make: honda\n" +
-			"model: civic"
+			"year: 2021\n" +
+			"make: Honda\n" +
+			"model: Civic"
 		);
-	}
-	
-	@Test
-	void testCreate() {
 	}
 }

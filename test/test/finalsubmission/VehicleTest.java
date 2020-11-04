@@ -1,4 +1,4 @@
-package test;
+package test.finalsubmission;
 
 import finalsubmission.Vehicle;
 
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests CRUD methods in the Vehicle class.
  * 
- * @author 18ey01
+ * @author Edward Yau
  *
  */
 public class VehicleTest {

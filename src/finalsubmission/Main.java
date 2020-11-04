@@ -4,7 +4,7 @@ package finalsubmission;
  * Reads command-line arguments, executes CRUD operations, 
  * and outputs table entries.
  * 
- * @author 18ey01
+ * @author Edward Yau
  *
  */
 public class Main {

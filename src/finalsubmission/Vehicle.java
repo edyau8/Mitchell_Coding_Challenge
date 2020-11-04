@@ -5,7 +5,7 @@ import java.sql.*;
 /**
  * Defines the CRUD methods for the Vehicles database.
  * 
- * @author 18ey01
+ * @author Edward Yau
  *
  */
 public class Vehicle {

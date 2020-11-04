@@ -3,6 +3,12 @@ Name: Edward Yau
 Task: Implement a solution that performs CRUD operations  
 (Create, Read, Update, and Delete) for a Vehicle (automobile) entity.
   
+## Testing (test.finalsubmission)
+Run the following command to test the program:
+
+	java -jar finalsubmission_test.jar  
+
+
 ## Sample Client (finalsubmission)
 The client first navigates to the project directory.  
 

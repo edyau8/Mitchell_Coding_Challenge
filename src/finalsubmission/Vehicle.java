@@ -3,28 +3,32 @@ package finalsubmission;
 import java.sql.*;
 
 /**
- * 
+ * Defines the CRUD methods for the Vehicles database.
  * 
  * @author 18ey01
  *
  */
-class Vehicle {
+public class Vehicle {
 	
 	/**
+	 * Gets entries from the vehicle_objects table based on certain specifications.
 	 * 
-	 * 
-	 * @param args
+	 * @param args The specifications used to obtain certain entries.
 	 */
-	void get(String[] args) {
-		if (args.length > 1) {
+	public void get(String[] args) {
+		// Verify arguments
+		if (args.length > 4) {
 			System.out.println("Incorrect number of arguments.");
 			return;
 		}
+		
 		Connection conn = null;
     	
         try {
         	// Create JDBC connection
             Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            // Establish connection to database
             conn = DriverManager.getConnection(
             		"jdbc:mysql://"
             		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
@@ -36,11 +40,77 @@ class Vehicle {
         
         Statement stmt = null;   
         ResultSet rs = null;
+        
+        // Query used to interact with table
         String query = "SELECT * FROM vehicle_objects;";
         
+        // Get entry by ID
     	if (args.length == 1) {
         	int Id = Integer.parseInt(args[0]);
-        	query = String.format("SELECT * FROM vehicles WHERE id='%d';", Id);
+        	query = String.format("SELECT * FROM vehicle_objects WHERE id='%d';", Id);
+        	
+        // Get entries by ID, Make, OR Model
+    	} else if (args.length == 2) {
+    		String Element = args[0];
+    		
+    		if (Element.equals("year")) {
+    			int Value = Integer.parseInt(args[1]);
+        		query = String.format("SELECT * FROM vehicle_objects WHERE %s='%d';", 
+        				Element, Value);
+    		} else {
+        		String Value = args[1];
+        		query = String.format("SELECT * FROM vehicle_objects WHERE %s='%s';", 
+        				Element, Value);
+    		}
+    		
+    	// Get entries by ID, Make, AND Model
+    	} else if (args.length == 3) {
+    		int Year = Integer.parseInt(args[0]);
+    	   	String Make = args[1];
+        	String Model = args[2];
+        	
+        	query = String.format(
+        			"SELECT * FROM vehicle_objects WHERE" +
+        			"(year='%d' AND make='%s' AND model='%s');", 
+        			Year, Make, Model);
+        	
+        // Get entries by two values
+    	} else if (args.length == 4) {
+    		String Element1 = args[0];
+    		String Element2 = args[1];
+    		
+    		if (Element1.equals(Element2)) {
+    			System.out.println("Invalid arguments for get.");
+    			return;
+    		}
+    		
+    		if (Element1.equals("year")) {
+    			int Value1 = Integer.parseInt(args[2]);
+    			String Value2 = args[3];
+    			
+            	query = String.format(
+            			"SELECT * FROM vehicle_objects WHERE" +
+            			"(%s='%d' AND %s='%s');", 
+            			Element1, Value1, Element2, Value2);
+            	
+    		} else if (Element2.equals("year")) {
+    			String Value1 = args[2];
+    			int Value2 = Integer.parseInt(args[3]);
+    			
+            	query = String.format(
+            			"SELECT * FROM vehicle_objects WHERE" +
+            			"(%s='%s' AND %s='%d');", 
+            			Element1, Value1, Element2, Value2);
+            	
+    		} else {
+    			String Value1 = args[2];
+    			String Value2 = args[3];
+    			
+            	query = String.format(
+            			"SELECT * FROM vehicle_objects WHERE" +
+            			"(%s='%s' AND %s='%s');", 
+            			Element1, Value1, Element2, Value2);
+    		}
     	}
 
         try {
@@ -52,11 +122,10 @@ class Vehicle {
             // Print table
             while (rs.next()) {
                 for (int i = 1; i <= columnsNumber; i++) {
-                    if (i > 1) System.out.println();
+                    if (i > 1) System.out.print(", ");
                     String columnValue = rs.getString(i);
                     System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
                 }
-                System.out.println();
                 System.out.println();
             }
             return;
@@ -87,11 +156,12 @@ class Vehicle {
 	}
 	
 	/**
+	 * Creates entries in the vehicle_objects table given a year, make, and model.
 	 * 
-	 * 
-	 * @param args
+	 * @param args The values used for the entry.
 	 */
-	void create(String[] args) {
+	public void create(String[] args) {
+		// Verify arguments
 		if (args.length != 3) {
     		System.out.println("Incorrect number of arguments.");
     		return;
@@ -111,6 +181,8 @@ class Vehicle {
         try {
         	// Create JDBC connection
             Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            // Establish connection to database
             conn = DriverManager.getConnection(
             		"jdbc:mysql://"
             		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
@@ -120,7 +192,9 @@ class Vehicle {
             System.out.println(ex);
         }
         
-        Statement stmt = null;        
+        Statement stmt = null;
+        
+        // Query used to interact with table
         String query = String.format(
         		"INSERT INTO vehicle_objects (year, make, model) VALUE "
         		+ "( '%d', '%s', '%s' );", Year, Make, Model);
@@ -148,11 +222,12 @@ class Vehicle {
 	}
 	
 	/**
+	 * Updates an entry in the vehicle_objects table based on certain specifications.
 	 * 
-	 * 
-	 * @param args
+	 * @param args The specifications used to update the entry.
 	 */
-	void update(String[] args) {
+	public void update(String[] args) {
+		// Verify arguments
 		if (args.length != 3) {
     		System.out.println("Incorrect number of arguments.");
     		return;
@@ -162,6 +237,7 @@ class Vehicle {
     	String Element = args[1];
     	String Value = args[2];
     	
+    	// Verify value for year
     	if (Element == "year") {
     		int Year = Integer.parseInt(args[2]);
     	   	if (Year < 1950 || Year > 2050) {
@@ -175,6 +251,8 @@ class Vehicle {
         try {
         	// Create JDBC connection
             Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            // Establish connection to database
             conn = DriverManager.getConnection(
             		"jdbc:mysql://"
             		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
@@ -184,7 +262,9 @@ class Vehicle {
             System.out.println(ex);
         }
         
-        Statement stmt = null;        
+        Statement stmt = null;
+        
+        // Query used to interact with table
         String query = String.format(
         		"UPDATE vehicle_objects SET %s='%s' WHERE id=%d", Element, Value, Id);
 
@@ -211,11 +291,13 @@ class Vehicle {
 	}
 	
 	/**
+	 * Deletes entries in the vehicle_objects table.
 	 * 
-	 * 
-	 * @param args
+	 * @param args Empty if the user wants to delete the entire table, 
+	 * an ID number otherwise.
 	 */
-	void delete(String[] args) {
+	public void delete(String[] args) {
+		// Verify arguments
 		if (args.length > 1) {
     		System.out.println("Incorrect number of arguments.");
     		return;
@@ -226,6 +308,8 @@ class Vehicle {
         try {
         	// Create JDBC connection
             Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            // Establish connection to database
             conn = DriverManager.getConnection(
             		"jdbc:mysql://"
             		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
@@ -235,9 +319,12 @@ class Vehicle {
             System.out.println(ex);
         }
         
-        Statement stmt = null;        
+        Statement stmt = null;
+        
+        // Query used to interact with table
         String query = "TRUNCATE TABLE vehicle_objects;";
 
+        // Delete entry by ID
         if (args.length == 1) {
         	int Id = Integer.parseInt(args[0]);
         	query = String.format(

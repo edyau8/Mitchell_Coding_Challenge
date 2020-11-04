@@ -1,7 +1,8 @@
 package finalsubmission;
 
 /**
- * 
+ * Reads command-line arguments, executes CRUD operations, 
+ * and outputs table entries.
  * 
  * @author 18ey01
  *
@@ -9,9 +10,9 @@ package finalsubmission;
 public class Main {
 	
 	/**
+	 * The main driver for the program. 
 	 * 
-	 * 
-	 * @param args
+	 * @param args The specifications used to execute operations.
 	 */
 	public static void main(String[] args) {
 		// Verify command-line arguments
@@ -26,6 +27,7 @@ public class Main {
 			return;
 		}
 		
+		// Store remaining arguments
 		String[] argsArr = new String[args.length - 1];
 		for (int i = 1; i < args.length; i++) {
 			argsArr[i - 1] = args[i].toLowerCase().trim();

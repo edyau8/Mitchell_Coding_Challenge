@@ -9,21 +9,14 @@ import java.sql.*;
  *
  */
 public class Vehicle {
+	private Connection conn = null;
+	private Statement stmt = null;
+	private ResultSet rs = null;
 	
 	/**
-	 * Gets entries from the vehicle_objects table based on certain specifications.
-	 * 
-	 * @param args The specifications used to obtain certain entries.
+	 * Connect to the mySQL database.
 	 */
-	public void get(String[] args) {
-		// Verify arguments
-		if (args.length > 4) {
-			System.out.println("Incorrect number of arguments.");
-			return;
-		}
-		
-		Connection conn = null;
-    	
+	public void connect() {
         try {
         	// Create JDBC connection
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -37,9 +30,19 @@ public class Vehicle {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        
-        Statement stmt = null;   
-        ResultSet rs = null;
+	}
+	
+	/**
+	 * Gets entries from the vehicle_objects table based on certain specifications.
+	 * 
+	 * @param args The specifications used to obtain certain entries.
+	 */
+	public void get(String[] args) {
+		// Verify arguments
+		if (args.length > 4) {
+			System.out.println("Incorrect number of arguments.");
+			return;
+		}
         
         // Query used to interact with table
         String query = "SELECT * FROM vehicle_objects;";
@@ -175,25 +178,7 @@ public class Vehicle {
     		System.out.println("Year must be between 1950 and 2050.");
     		return;
     	}
-    	
-    	Connection conn = null;
-    	
-        try {
-        	// Create JDBC connection
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
-            // Establish connection to database
-            conn = DriverManager.getConnection(
-            		"jdbc:mysql://"
-            		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
-            		+ "vehicles", "guest", "guest123");
-
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        
-        Statement stmt = null;
-        
+                
         // Query used to interact with table
         String query = String.format(
         		"INSERT INTO vehicle_objects (year, make, model) VALUE "
@@ -245,25 +230,7 @@ public class Vehicle {
         		return;
         	}
     	}
-    	
-    	Connection conn = null;
-    	
-        try {
-        	// Create JDBC connection
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
-            // Establish connection to database
-            conn = DriverManager.getConnection(
-            		"jdbc:mysql://"
-            		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
-            		+ "vehicles", "guest", "guest123");
-
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        
-        Statement stmt = null;
-        
+                
         // Query used to interact with table
         String query = String.format(
         		"UPDATE vehicle_objects SET %s='%s' WHERE id=%d", Element, Value, Id);
@@ -302,25 +269,7 @@ public class Vehicle {
     		System.out.println("Incorrect number of arguments.");
     		return;
     	}
-    	
-    	Connection conn = null;
-    	
-        try {
-        	// Create JDBC connection
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
-            // Establish connection to database
-            conn = DriverManager.getConnection(
-            		"jdbc:mysql://"
-            		+ "database-1.cffly3ha3nha.us-east-1.rds.amazonaws.com:3306/"
-            		+ "vehicles", "guest", "guest123");
-
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        
-        Statement stmt = null;
-        
+                
         // Query used to interact with table
         String query = "TRUNCATE TABLE vehicle_objects;";
 

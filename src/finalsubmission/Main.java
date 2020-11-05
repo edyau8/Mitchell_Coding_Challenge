@@ -34,6 +34,7 @@ public class Main {
 		}
 		
 		Vehicle temp = new Vehicle();
+		temp.connect();
 		
 		// Call on respective functions
 		switch(operation) {

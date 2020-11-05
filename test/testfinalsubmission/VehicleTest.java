@@ -1,4 +1,4 @@
-package test.finalsubmission;
+package testfinalsubmission;
 
 import finalsubmission.Vehicle;
 
@@ -43,6 +43,7 @@ public class VehicleTest {
 	@Test
 	public void testCRUD() {
 		Vehicle temp = new Vehicle();
+		temp.connect();
 		
 		String[] args = {};
 		temp.delete(args);
@@ -64,12 +65,40 @@ public class VehicleTest {
 		);
 	}
 	
+	@Test
+	public void testLargeDataSet() {
+		Vehicle temp = new Vehicle();
+		temp.connect();
+		
+		String[] args = {};
+		temp.delete(args);
+		
+		String[] args2 = {"1950", "Toyota", "Prius"};
+		for (int i = 0; i < 101; i++) {
+			args2[0] = Integer.toString(1950 + i);
+			temp.create(args2);
+		}
+		
+		String[] args3 = {"101"};
+		temp.get(args3);
+		
+		String[] args4 = {"51"};
+		temp.get(args4);
+		
+		assertEquals(
+				outputStreamCaptor.toString().trim(),
+				"id: 101, " + "year: 2050, " + "make: Toyota, " + "model: Prius\n" +
+				"id: 51, " + "year: 2000, " + "make: Toyota, " + "model: Prius"
+		);
+	}
+	
 	/**
 	 * Tests invalid year input.
 	 */
 	@Test
 	public void testInvalidYear() {
 		Vehicle temp = new Vehicle();
+		temp.connect();
 		
 		String[] args = {"1949", "Toyota", "Prius"};
 		temp.create(args);
@@ -85,6 +114,7 @@ public class VehicleTest {
 	@Test
 	public void testInvalidGet() {
 		Vehicle temp = new Vehicle();
+		temp.connect();
 		
 		String[] args = {"make", "make", "Toyota", "Prius"};
 		temp.get(args);

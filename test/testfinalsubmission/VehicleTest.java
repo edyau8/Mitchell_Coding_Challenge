@@ -65,6 +65,55 @@ public class VehicleTest {
 		);
 	}
 	
+	/**
+	 * Tests get method with filters
+	 */
+	@Test
+	public void testGetFilters() {
+		Vehicle temp = new Vehicle();
+		temp.connect();
+		
+		String[] args = {};
+		temp.delete(args);
+		
+		String[] args2 = {"2010", "Toyota", "Prius"};
+		String[] args3 = {"2010", "Toyota", "Camry"};
+		String[] args4 = {"2011", "Toyota", "Prius"};
+		String[] args5 = {"2011", "Honda", "Civic"};
+
+		temp.create(args2);
+		temp.create(args3);
+		temp.create(args4);
+		temp.create(args5);
+
+		String[] args6 = {"make", "model", "Toyota", "Prius"};
+		String[] args7 = {"year", "make", "2010", "Toyota"};
+		String[] args8 = {"year", "2011"};
+		String[] args9 = {"make", "Toyota"};
+		
+		temp.get(args6);
+		temp.get(args7);
+		temp.get(args8);
+		temp.get(args9);
+
+		assertEquals(
+				outputStreamCaptor.toString().trim(),
+				"id: 1, " + "year: 2010, " + "make: Toyota, " + "model: Prius\n" +
+				"id: 3, " + "year: 2011, " + "make: Toyota, " + "model: Prius\n" +
+				"id: 1, " + "year: 2010, " + "make: Toyota, " + "model: Prius\n" +
+				"id: 2, " + "year: 2010, " + "make: Toyota, " + "model: Camry\n" +
+				"id: 3, " + "year: 2011, " + "make: Toyota, " + "model: Prius\n" +
+				"id: 4, " + "year: 2011, " + "make: Honda, " + "model: Civic\n" +
+				"id: 1, " + "year: 2010, " + "make: Toyota, " + "model: Prius\n" +
+				"id: 2, " + "year: 2010, " + "make: Toyota, " + "model: Camry\n" +
+				"id: 3, " + "year: 2011, " + "make: Toyota, " + "model: Prius"
+		);
+		
+	}
+	
+	/**
+	 * Tests create and get methods for a large data set.
+	 */
 	@Test
 	public void testLargeDataSet() {
 		Vehicle temp = new Vehicle();
